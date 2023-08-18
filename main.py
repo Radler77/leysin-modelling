@@ -1,6 +1,8 @@
-from agents import *
+from simulation.population_plotter import PopulationPlotter
+from simulation.simulation import Simulation
 
 # main
 if __name__ == '__main__':
-    agent_1 = NormieAgent(0.7)
-    agent_1.placeholder_method()
+    simulation: Simulation = Simulation(number_of_timesteps=100)
+    simulation.run()
+    PopulationPlotter().plot((simulation.get_population_size_log()))
