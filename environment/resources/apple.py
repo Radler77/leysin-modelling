@@ -1,7 +1,8 @@
 from .resource import Resource
 from ...agents import Agent
 
-class Appel(Resource):
+
+class Apple(Resource):
 
     nutrition = 0.3
 

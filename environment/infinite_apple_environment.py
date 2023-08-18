@@ -1,5 +1,5 @@
 from environment.environment import Environment
-from environment.resources.appel import Appel
+from environment.resources.apple import Apple
 
 
 class InfiniteAppleEnvironment(Environment):
@@ -8,4 +8,4 @@ class InfiniteAppleEnvironment(Environment):
 
     def next_time_step(self):
         for i in range(self.new_apples_per_timestep):
-            self.resources.append(Appel())
+            self.resources.append(Apple())
