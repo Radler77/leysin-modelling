@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 
+from agents import Agent
+
+
 class Resource(ABC):
     
     @abstractmethod
