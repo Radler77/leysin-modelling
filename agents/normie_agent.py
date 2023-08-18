@@ -1,3 +1,7 @@
+from random import Random
+from typing import List, Optional
+from conflicts.conflict import Conflict
+from environment.resources import Resource
 from .agent import Agent
 
 class NormieAgent(Agent):
@@ -5,6 +9,18 @@ class NormieAgent(Agent):
     def __init__(self, reproduction_rate):
         self.reproduction_rate = reproduction_rate
     
-    def placeholder_method(self):
-        print("I'm a normie")
-        print("My reproduction rate is", self.reproduction_rate)
+    # choose any resource of type "food" if the agent is not fully satiated
+    def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
+        if self.satiety >= 1:
+            return None
+        
+        food : List[Resource]= resources.filter(lambda resource: resource.type == "food")
+        index : int = Random.randint(0, len(food) - 1)
+        
+        return food[index]
+    
+    def handle_conflict(self, conflict: Conflict):
+        # give up the contested ressource if i can survive without it and another agent wants to consume it
+        if self.get_basic_need_fulfillment() >= self.survival_threshold and len(Conflict.agents_involved) >= 2:
+            conflict.agents_involved.remove(self)
+            return
