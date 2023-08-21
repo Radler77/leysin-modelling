@@ -30,6 +30,7 @@ class World:
         self.distribute_resources()
 
     def update_population(self):
+        """Updates the population of this world. This includes reproduction and death of agents."""
         next_agents: List[Agent] = []
         for agent in self.agents:
             if agent.can_reproduce():
@@ -39,6 +40,9 @@ class World:
         self.agents = next_agents
 
     def distribute_resources(self):
+        """Distributes resources to the agents. This includes agents choosing which resources they desire, allowing them
+        to change their minds if another agent wants the same resource, and handling remaining conflicts after all agents
+        have settled on their decision."""
         agent_conflicts, conflicts = self.create_initial_conflicts()
         # TODO: allow agents to change their mind multiple times
         self.allow_agents_to_change_mind(agent_conflicts)
@@ -49,6 +53,9 @@ class World:
             self.environment.resources.remove(rewards[agent])
 
     def resolve_remaining_conflicts(self, conflicts):
+        """Resolves the remaining conflicts after all agents have settled on their decision. For example, if two agents
+        want the same resource, but only one can have it, we might punish both agents since they are now fighting for the
+        same resource."""
         rewards: dict[Agent, Resource] = self.resolve_strategy.resolve_conflict(list(conflicts.values()))
         return rewards
 

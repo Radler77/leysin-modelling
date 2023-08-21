@@ -6,13 +6,15 @@ from snowpiercer.agents.agent import Agent
 
 
 class NormieAgent(Agent):
+    random = Random()
+
     # choose any resource of type "food" if the agent is not fully satiated
     def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
         if self.satiety >= 1:
             return None
 
         food: List[Resource] = list(filter(lambda resource: resource.get_type() == "food", resources))
-        index: int = Random().randint(0, len(food) - 1)
+        index: int = self.random.randint(0, len(food) - 1)
 
         return food[index]
 

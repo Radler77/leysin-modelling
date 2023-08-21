@@ -22,7 +22,7 @@ class Agent(ABC):
         self.satiety = max(1.0, self.satiety + amount)
 
     def can_reproduce(self) -> bool:
-        return self.satiety > 0.7
+        return self.satiety > self.reproduction_threshold
 
     def can_survive(self) -> bool:
         return self.satiety > self.survival_threshold
