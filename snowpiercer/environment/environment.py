@@ -1,4 +1,4 @@
-from environment.resources.resource import Resource
+from snowpiercer.resources.resource import Resource
 from abc import ABC, abstractmethod
 
 

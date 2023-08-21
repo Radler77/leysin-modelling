@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from conflicts.conflict import Conflict
-from environment.resources import Resource
+from snowpiercer.conflicts.conflict import Conflict
+from snowpiercer.resources.resource import Resource
 
 
 class Agent(ABC):

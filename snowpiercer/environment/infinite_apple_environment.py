@@ -1,5 +1,5 @@
-from environment.environment import Environment
-from environment.resources.apple import Apple
+from snowpiercer.environment.environment import Environment
+from snowpiercer.resources.apple import Apple
 
 
 class InfiniteAppleEnvironment(Environment):

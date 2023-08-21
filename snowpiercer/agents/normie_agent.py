@@ -1,12 +1,11 @@
 from random import Random
 from typing import List, Optional
-from conflicts.conflict import Conflict
-from environment.resources import Resource
-from .agent import Agent
+from snowpiercer.conflicts.conflict import Conflict
+from snowpiercer.resources.resource import Resource
+from snowpiercer.agents.agent import Agent
 
 
 class NormieAgent(Agent):
-
     # choose any resource of type "food" if the agent is not fully satiated
     def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
         if self.satiety >= 1:

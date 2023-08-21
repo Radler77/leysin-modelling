@@ -1,5 +1,5 @@
-from .resource import Resource
-from ...agents import Agent
+from snowpiercer.resources.resource import Resource
+from snowpiercer.agents.agent import Agent
 
 
 class Apple(Resource):

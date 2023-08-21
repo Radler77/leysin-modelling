@@ -1,10 +1,11 @@
+from __future__ import annotations
 from typing import List
 
-from conflicts.conflict import Conflict
-from environment import Environment
-from agents import Agent
-from environment.resources import Resource
-from conflicts import ConflictResolver
+from snowpiercer.environment.environment import Environment
+from snowpiercer.agents.agent import Agent
+from snowpiercer.resources.resource import Resource
+from snowpiercer.conflicts.conflict import Conflict
+from snowpiercer.conflicts.conflict_resolver import ConflictResolver
 
 
 class World:
@@ -69,15 +70,15 @@ class World:
             agent_conflicts[agent] = conflicts[preferred_resource]
         return agent_conflicts, conflicts
 
+    @staticmethod
+    def create_simple_world() -> World:
+        from conflicts import PrisonerDilemmaResolver
+        from environment import InfiniteAppleEnvironment
+        from agents import NormieAgent
 
-def create_simple_world() -> World:
-    from conflicts import PrisonerDilemmaResolver
-    from environment import InfiniteAppleEnvironment
-    from agents import NormieAgent
-
-    resolve_strategy = PrisonerDilemmaResolver()
-    environment = InfiniteAppleEnvironment(30)
-    agents = []
-    for i in range(0, 30):
-        agents.append(NormieAgent())
-    return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+        resolve_strategy = PrisonerDilemmaResolver()
+        environment = InfiniteAppleEnvironment(30)
+        agents = []
+        for i in range(0, 30):
+            agents.append(NormieAgent())
+        return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
