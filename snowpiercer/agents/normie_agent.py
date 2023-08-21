@@ -20,7 +20,7 @@ class NormieAgent(Agent):
 
     def handle_conflict(self, conflict: Conflict):
         # give up the contested resource if i can survive without it and another agent wants to consume it
-        if self.get_basic_need_fulfillment() >= self.survival_threshold and len(Conflict.agents_involved) >= 2:
+        if self.get_basic_need_fulfillment() >= self.survival_threshold and len(conflict.agents_involved) >= 2:
             conflict.agents_involved.remove(self)
 
     def reproduce(self):
