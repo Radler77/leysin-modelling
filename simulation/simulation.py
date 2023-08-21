@@ -15,7 +15,7 @@ class Simulation:
 
     def run(self):
         for i in range(self.number_of_timesteps):
-            population_size: int = world.get_population_size()
+            population_size: int = self.world.get_population_size()
             self.population_size_log[i] = population_size
             self.world.next_time_step()
 

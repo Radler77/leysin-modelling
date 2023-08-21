@@ -18,7 +18,7 @@ class Agent(ABC):
         # TODO: implement more complex metric
         return self.satiety
 
-    def eat(self, amount: float):
+    def change_satiety(self, amount: float):
         self.satiety = max(1, self.satiety + amount)
 
     def can_reproduce(self) -> bool:

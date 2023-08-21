@@ -10,3 +10,9 @@ class Conflict:
     def __init__(self, contested_ressource: Resource, agents_involved: List[Agent]):
         self.contested_ressource = contested_ressource
         self.agents_involved = agents_involved
+
+    def add_agent_involved(self, agent: Agent):
+        self.agents_involved.append(agent)
+
+    def remove_agent_involved(self, agent: Agent):
+        self.agents_involved.remove(agent)
