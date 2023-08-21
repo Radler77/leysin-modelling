@@ -7,9 +7,6 @@ from .agent import Agent
 
 class NormieAgent(Agent):
 
-    def __init__(self, reproduction_rate):
-        self.reproduction_rate = reproduction_rate
-
     # choose any resource of type "food" if the agent is not fully satiated
     def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
         if self.satiety >= 1:
@@ -25,3 +22,6 @@ class NormieAgent(Agent):
         if self.get_basic_need_fulfillment() >= self.survival_threshold and len(Conflict.agents_involved) >= 2:
             conflict.agents_involved.remove(self)
             return
+
+    def reproduce(self):
+        return NormieAgent()

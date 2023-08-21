@@ -6,20 +6,13 @@ from environment.resources import Resource
 
 
 class Agent(ABC):
-    reproduction_rate = .0
-
     satiety = .0
 
     # minimum basic_need_fulfillment that an Agent needs to survive
     survival_threshold = .3
 
-    money_balance = 0
-
-    # how likely the agent is to give up in a conflict / for a contested ressource
-    conflict_aversion = .0
-
-    # how likely the agent is to give up on updating its decision when getting new information / in a new decision round
-    decision_fatigue = .0
+    # minimum basic_need_fulfillment that an Agent needs to reproduce
+    reproduction_threshold = 0.7
 
     def get_basic_need_fulfillment(self):
         # TODO: implement more complex metric
@@ -27,6 +20,16 @@ class Agent(ABC):
 
     def eat(self, amount: float):
         self.satiety = max(1, self.satiety + amount)
+
+    def can_reproduce(self) -> bool:
+        return self.satiety > 0.7
+
+    def can_survive(self) -> bool:
+        return self.satiety > self.survival_threshold
+
+    @abstractmethod
+    def reproduce(self):
+        pass
 
     @abstractmethod
     def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
