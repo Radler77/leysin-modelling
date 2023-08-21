@@ -22,6 +22,8 @@ class World:
         return len(self.agents)
 
     def next_time_step(self):
+        """Executes one time step in this world. This includes updating the environment and available resources,
+        updating the population and distributing resources to the agents."""
         self.environment.next_time_step()
         self.update_population()
         self.distribute_resources()
@@ -43,6 +45,7 @@ class World:
 
         for agent in rewards.keys():
             rewards[agent].consumed_by(agent)
+            self.environment.resources.remove(rewards[agent])
 
     def resolve_remaining_conflicts(self, conflicts):
         rewards: dict[Agent, Resource] = self.resolve_strategy.resolve_conflict(list(conflicts.values()))
