@@ -6,7 +6,7 @@ from environment.resources import Resource
 
 
 class Agent(ABC):
-    satiety = .0
+    satiety = .5
 
     # minimum basic_need_fulfillment that an Agent needs to survive
     survival_threshold = .3
@@ -19,7 +19,7 @@ class Agent(ABC):
         return self.satiety
 
     def change_satiety(self, amount: float):
-        self.satiety = max(1, self.satiety + amount)
+        self.satiety = max(1.0, self.satiety + amount)
 
     def can_reproduce(self) -> bool:
         return self.satiety > 0.7
