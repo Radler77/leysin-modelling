@@ -3,7 +3,6 @@ from environment.resources.apple import Apple
 
 
 class InfiniteAppleEnvironment(Environment):
-
     new_apples_per_timestep = 10
 
     def next_time_step(self):
