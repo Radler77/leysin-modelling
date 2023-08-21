@@ -13,6 +13,11 @@ class World:
     resolve_strategy: ConflictResolver = None
     resources: List[Resource] = []
 
+    def __init__(self, resolve_strategy: ConflictResolver, environment: Environment, agents: List[Agent]):
+        self.resolve_strategy = resolve_strategy
+        self.environment = environment
+        self.agents = agents
+
     def get_population_size(self):
         return len(self.agents)
 
@@ -60,3 +65,16 @@ class World:
 
             agent_conflicts[agent] = conflicts[preferred_resource]
         return agent_conflicts, conflicts
+
+
+def create_simple_world() -> World:
+    from conflicts import PrisonerDilemmaResolver
+    from environment import InfiniteAppleEnvironment
+    from agents import NormieAgent
+
+    resolve_strategy = PrisonerDilemmaResolver()
+    environment = InfiniteAppleEnvironment(30)
+    agents = []
+    for i in range(0, 30):
+        agents.append(NormieAgent())
+    return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)

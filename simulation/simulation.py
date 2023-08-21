@@ -1,5 +1,6 @@
 import numpy as np
 from world import World
+from world.world import create_simple_world
 
 
 class Simulation:
@@ -10,7 +11,7 @@ class Simulation:
 
     def __init__(self, number_of_timesteps: int):
         self.number_of_timesteps = number_of_timesteps
-        self.world = World()
+        self.world = create_simple_world()
         population_size_log = np.empty(self.number_of_timesteps)
 
     def run(self):
