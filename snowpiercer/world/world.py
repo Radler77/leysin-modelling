@@ -12,7 +12,6 @@ class World:
     environment: Environment = None
     agents: List[Agent] = []
     resolve_strategy: ConflictResolver = None
-    resources: List[Resource] = []
 
     def __init__(self, resolve_strategy: ConflictResolver, environment: Environment, agents: List[Agent]):
         self.resolve_strategy = resolve_strategy
@@ -67,7 +66,7 @@ class World:
         conflicts: dict[Resource, Conflict] = {}
         agent_conflicts: dict[Agent, Conflict] = {}
         for agent in self.agents:
-            preferred_resource: Resource = agent.initial_resource_selection(self.resources)
+            preferred_resource: Resource = agent.initial_resource_selection(self.environment.resources)
             if preferred_resource not in conflicts.keys():
                 conflicts[preferred_resource] = Conflict(contested_ressource=preferred_resource,
                                                          agents_involved=[agent])

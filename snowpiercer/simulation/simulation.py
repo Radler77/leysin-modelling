@@ -10,9 +10,9 @@ class Simulation:
     world: World = None
     population_size_log : npt.NDArray['int'] = None
 
-    def __init__(self, number_of_timesteps: int):
+    def __init__(self, number_of_timesteps: int, world: World):
         self.number_of_timesteps = number_of_timesteps
-        self.world = World.create_simple_world()
+        self.world = world
         self.population_size_log = np.empty(self.number_of_timesteps, dtype='int')
 
     def run(self):
