@@ -1,5 +1,5 @@
-from simulation.population_plotter import PopulationPlotter
-from simulation.simulation import Simulation
+from snowpiercer.simulation import PopulationPlotter
+from snowpiercer.simulation import Simulation
 
 # main script
 if __name__ == '__main__':

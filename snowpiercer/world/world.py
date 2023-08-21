@@ -79,9 +79,9 @@ class World:
 
     @staticmethod
     def create_simple_world() -> World:
-        from conflicts import PrisonerDilemmaResolver
-        from environment import InfiniteAppleEnvironment
-        from agents import NormieAgent
+        from snowpiercer.conflicts import PrisonerDilemmaResolver
+        from snowpiercer.environment import InfiniteAppleEnvironment
+        from snowpiercer.agents import NormieAgent
 
         resolve_strategy = PrisonerDilemmaResolver()
         environment = InfiniteAppleEnvironment(30)
