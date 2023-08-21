@@ -14,8 +14,8 @@ class NormieAgent(Agent):
         if self.satiety >= 1:
             return None
         
-        food : List[Resource]= resources.filter(lambda resource: resource.type == "food")
-        index : int = Random.randint(0, len(food) - 1)
+        food: List[Resource] = list(filter(lambda resource: resource.get_type() == "food", resources))
+        index: int = Random().randint(0, len(food) - 1)
         
         return food[index]
     
