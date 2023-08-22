@@ -163,4 +163,3 @@ class World:
             agents.append(NormieAgent())
             
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
-a
