@@ -49,8 +49,9 @@ class World:
         rewards = self.resolve_remaining_conflicts(conflicts)
 
         for agent in rewards.keys():
-            rewards[agent].consumed_by(agent)
-            self.environment.resources.remove(rewards[agent])
+            if rewards[agent] is not None:
+                rewards[agent].consumed_by(agent)
+                self.environment.resources.remove(rewards[agent])
 
     def resolve_remaining_conflicts(self, conflicts):
         """Resolves the remaining conflicts after all agents have settled on their decision. For example, if two agents
