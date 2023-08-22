@@ -1,8 +1,6 @@
 Leysin Modelling
 ===
 
-Stephanie nach Rohstoff-Modell fragen
-
 # Projektplan
 
 ## 1. Konkretisierte Fragestellung
