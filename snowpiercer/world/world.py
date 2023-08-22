@@ -32,6 +32,7 @@ class World:
         """Updates the population of this world. This includes reproduction and death of agents."""
         next_agents: List[Agent] = []
         for agent in self.agents:
+            agent.next_timestep()
             if agent.can_reproduce():
                 next_agents.append(agent.reproduce())
             if agent.can_survive():
