@@ -12,13 +12,13 @@ class Simulation:
     def __init__(self, number_of_timesteps: int, world: World):
         self.number_of_timesteps = number_of_timesteps
         self.world = world
-        self.data = pd.DataFrame(columns=['time', 'population_size', 'born', 'died'])
+        self.data = pd.DataFrame(columns=['time', 'population_size', 'born', 'died', 'wood resources'])
         
     def run(self):
         self.data = self.run_experiment()
 
     def run_experiment(self) -> pd.DataFrame:        
-        data = {'time': np.zeros(self.number_of_timesteps), 'population_size': np.zeros(self.number_of_timesteps), 'born': np.zeros(self.number_of_timesteps), 'died': np.zeros(self.number_of_timesteps)}
+        data = {'time': np.zeros(self.number_of_timesteps), 'population_size': np.zeros(self.number_of_timesteps), 'born': np.zeros(self.number_of_timesteps), 'died': np.zeros(self.number_of_timesteps), 'wood resources': np.zeros(self.number_of_timesteps)}
         
         for i in range(self.number_of_timesteps):
             population_size: int = self.world.get_population_size()
@@ -29,6 +29,7 @@ class Simulation:
             data['population_size'][i] = population_size
             data['born'][i] = born
             data['died'][i] = died
+            data['wood resources'][i] = self.world.get_wood_resources()
             
             self.world.next_time_step()
 

@@ -18,7 +18,12 @@ class LumberjackAgent(Agent):
         wood_resources = list(filter(lambda r: r.get_type() == "wood", resources))
         food_resources = list(filter(lambda r: r.get_type() == "food", resources))
 
-        chance_of_taking_wood = self.satiety * 0.5 - (1 / (len(wood_resources) if len(wood_resources) > 0 else 0))
+        if len(wood_resources) == 0:
+            if len(food_resources) > 0:
+                return self.random.choice(food_resources)
+            return None
+
+        chance_of_taking_wood = (1 - self.shelter_quality) * (0.54 + self.satiety * 0.5 - (1 / (len(wood_resources))))
 
         choose_wood = self.random.random() < chance_of_taking_wood
 

@@ -20,3 +20,12 @@ class PopulationPlotter:
         
         plt.legend()
         plt.show()
+
+    def plot_wood_resources(self, df: pd.DataFrame):
+        plt.xlabel('Time')
+        plt.ylabel('Number of wood resources')
+
+        plt.plot(df['time'], df['wood resources'], label='Wood resources')
+
+        plt.legend()
+        plt.show()

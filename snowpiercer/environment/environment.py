@@ -15,6 +15,9 @@ class Environment(ABC):
     def remove_resource(self, resource: Resource):
         self.resources.remove(resource)
 
+    def get_resources(self):
+        return list(self.resources)
+
     @abstractmethod
     def next_time_step(self):
         pass

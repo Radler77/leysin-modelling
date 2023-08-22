@@ -30,6 +30,9 @@ class World:
     def get_died_count(self) -> int:
         return self.died_count
 
+    def get_wood_resources(self) -> int:
+        return len(list(filter(lambda r: r.get_type() == "wood", self.environment.get_resources())))
+
     def next_time_step(self):
         """Executes one time step in this world. This includes updating the environment and available resources,
         updating the population and distributing resources to the agents."""
