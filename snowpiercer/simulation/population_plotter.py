@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 
 class PopulationPlotter:
     
-    def plot(self, df: pd.DataFrame, population_size: bool = True, born: bool = True, died: bool = True):
-        
+    def plot(self, df: pd.DataFrame, title: str = None, population_size: bool = True, born: bool = True, died: bool = True, population_composition: bool = False):
+        if title is not None:
+            plt.title(title)
+            
         plt.xlabel('Time')
         plt.ylabel('Number of individuals')
         
@@ -17,6 +19,9 @@ class PopulationPlotter:
             plt.plot(df['time'], df['born'], label='Born rate')
         if died:
             plt.plot(df['time'], df['died'], label='Died rate')
+        if population_composition:
+            #TODO generalise this to multiple types of agents
+            plt.plot(df['time'], df['aggressiveAgents'], label='Aggressive agents')
         
         plt.legend()
         plt.show()
