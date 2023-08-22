@@ -28,7 +28,7 @@ class Agent(ABC):
         return self.satiety > self.survival_threshold
 
     def next_timestep(self):
-        self.change_satiety(-0.2)
+        self.change_satiety(-0.1)
 
     @abstractmethod
     def reproduce(self):

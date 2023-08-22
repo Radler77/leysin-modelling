@@ -16,10 +16,16 @@ class Simulation:
         self.population_size_log = np.empty(self.number_of_timesteps, dtype='int')
 
     def run(self):
+        self.population_size_log = self.run_experiment()
+
+    def run_experiment(self) -> npt.NDArray['int']:
+        population_size_log: npt.NDArray['int'] = np.empty(self.number_of_timesteps, dtype='int')
         for i in range(self.number_of_timesteps):
             population_size: int = self.world.get_population_size()
-            self.population_size_log[i] = population_size
+            population_size_log[i] = population_size
             self.world.next_time_step()
+        return population_size_log
+
 
     def get_population_size_log(self):
         return self.population_size_log
