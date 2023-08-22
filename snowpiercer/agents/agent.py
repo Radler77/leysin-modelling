@@ -19,7 +19,7 @@ class Agent(ABC):
         return self.satiety
 
     def change_satiety(self, amount: float):
-        self.satiety = max(1.0, self.satiety + amount)
+        self.satiety = min(1.0, self.satiety + amount)
 
     def can_reproduce(self) -> bool:
         return self.satiety > self.reproduction_threshold

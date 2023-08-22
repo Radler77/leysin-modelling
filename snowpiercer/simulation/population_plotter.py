@@ -11,4 +11,5 @@ class PopulationPlotter:
         plt.xlabel("Time")
         plt.ylabel("Individuals")
         plt.grid(True)
+        #plt.savefig("docs/plots/population_size.png")
         plt.show()
