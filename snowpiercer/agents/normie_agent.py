@@ -8,6 +8,9 @@ from snowpiercer.agents.agent import Agent
 class NormieAgent(Agent):
     random = Random()
 
+    def __init__(self, initial_shelter_quality: float = 0.0):
+        self.shelter_quality = initial_shelter_quality
+
     # choose any resource of type "food" if the agent is not fully satiated
     def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
         if self.satiety >= 1:
@@ -24,4 +27,4 @@ class NormieAgent(Agent):
             conflict.agents_involved.remove(self)
 
     def reproduce(self):
-        return NormieAgent()
+        return NormieAgent(self.shelter_quality)

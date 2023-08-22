@@ -7,6 +7,7 @@ from snowpiercer.resources.resource import Resource
 
 class Agent(ABC):
     satiety = .5
+    shelter_quality = .0
 
     # minimum basic_need_fulfillment that an Agent needs to survive
     survival_threshold = .3
@@ -15,20 +16,22 @@ class Agent(ABC):
     reproduction_threshold = 0.7
 
     def get_basic_need_fulfillment(self):
-        # TODO: implement more complex metric
-        return self.satiety
+        return self.satiety * (self.shelter_quality * 0.1 + 0.95)
 
     def change_satiety(self, amount: float):
         self.satiety = min(1.0, self.satiety + amount)
 
+    def change_shelter_quality(self, amount: float):
+        self.shelter_quality = min(1.0, self.shelter_quality + amount)
+
     def can_reproduce(self) -> bool:
-        return self.satiety > self.reproduction_threshold
+        return self.get_basic_need_fulfillment() > self.reproduction_threshold
 
     def can_survive(self) -> bool:
-        return self.satiety > self.survival_threshold
+        return self.get_basic_need_fulfillment() > self.survival_threshold
 
     def next_timestep(self):
-        self.change_satiety(-0.1)
+        self.change_satiety(-0.1 * (1 - self.shelter_quality))
 
     @abstractmethod
     def reproduce(self):
