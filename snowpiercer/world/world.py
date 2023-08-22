@@ -87,6 +87,8 @@ class World:
         agent_conflicts: dict[Agent, Conflict] = {}
         for agent in self.agents:
             preferred_resource: Resource = agent.initial_resource_selection(self.environment.resources)
+            if preferred_resource is None:
+                continue
             if preferred_resource not in conflicts.keys():
                 conflicts[preferred_resource] = Conflict(contested_ressource=preferred_resource,
                                                          agents_involved=[agent])
@@ -120,4 +122,17 @@ class World:
         agents = []
         for i in range(0, 30):
             agents.append(AggressiveAgent())
+        return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+
+    @staticmethod
+    def create_appletree_world_with_just_lumberjacks() -> World:
+        from snowpiercer.conflicts import PrisonerDilemmaResolver
+        from snowpiercer.environment import FiniteAppleTreesEnvironment
+        from snowpiercer.agents import LumberjackAgent
+
+        resolve_strategy = PrisonerDilemmaResolver()
+        environment = FiniteAppleTreesEnvironment(initial_trees=6)
+        agents = []
+        for i in range(0, 30):
+            agents.append(LumberjackAgent())
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)

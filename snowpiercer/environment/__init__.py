@@ -1,2 +1,3 @@
 from .environment import Environment
 from .infinite_apple_environment import InfiniteAppleEnvironment
+from .finite_apple_trees_environment import FiniteAppleTreesEnvironment
