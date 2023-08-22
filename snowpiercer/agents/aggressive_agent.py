@@ -8,8 +8,11 @@ from snowpiercer.agents.agent import Agent
 class AggressiveAgent(Agent):
     random = Random()
 
+    def __init__(self, initial_shelter_quality: float = 0.0):
+        self.shelter_quality = initial_shelter_quality
+
     def reproduce(self):
-        return AggressiveAgent()
+        return AggressiveAgent(self.shelter_quality)
 
     def initial_resource_selection(self, resources: List[Resource]) -> Optional[Resource]:
         return self.random.choice(resources)

@@ -35,6 +35,9 @@ class World:
         # possible improvement: not using isInstance() here
         return len(list(filter(lambda agent: isinstance(agent, AggressiveAgent) ,self.agents)))
 
+    def get_wood_resources(self) -> int:
+        return len(list(filter(lambda r: r.get_type() == "wood", self.environment.get_resources())))
+
     def next_time_step(self):
         """Executes one time step in this world. This includes updating the environment and available resources,
         updating the population and distributing resources to the agents."""
@@ -74,7 +77,7 @@ class World:
         for agent in rewards.keys():
             if rewards[agent] is not None:
                 rewards[agent].consumed_by(agent)
-                self.environment.resources.remove(rewards[agent])
+                self.environment.remove_resource(rewards[agent])
 
     def resolve_remaining_conflicts(self, conflicts):
         """Resolves the remaining conflicts after all agents have settled on their decision. For example, if two agents
@@ -92,6 +95,8 @@ class World:
         agent_conflicts: dict[Agent, Conflict] = {}
         for agent in self.agents:
             preferred_resource: Resource = agent.initial_resource_selection(self.environment.resources)
+            if preferred_resource is None:
+                continue
             if preferred_resource not in conflicts.keys():
                 conflicts[preferred_resource] = Conflict(contested_ressource=preferred_resource,
                                                          agents_involved=[agent])
@@ -126,7 +131,20 @@ class World:
         for i in range(0, 30):
             agents.append(AggressiveAgent())
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
-    
+
+    @staticmethod
+    def create_appletree_world_with_just_lumberjacks() -> World:
+        from snowpiercer.conflicts import PrisonerDilemmaResolver
+        from snowpiercer.environment import FiniteAppleTreesEnvironment
+        from snowpiercer.agents import LumberjackAgent
+
+        resolve_strategy = PrisonerDilemmaResolver()
+        environment = FiniteAppleTreesEnvironment(initial_trees=6)
+        agents = []
+        for i in range(0, 30):
+            agents.append(LumberjackAgent())
+        return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+
     @staticmethod
     def create_simple_mixed_world(aggressive_agents_quote: float = 0.1, population_initial_size: int = 30) -> World:
         from snowpiercer.conflicts import PrisonerDilemmaResolver
@@ -145,4 +163,4 @@ class World:
             agents.append(NormieAgent())
             
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
-        
+a
