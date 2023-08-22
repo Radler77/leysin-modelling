@@ -3,6 +3,7 @@ from typing import List
 
 from snowpiercer.environment.environment import Environment
 from snowpiercer.agents.agent import Agent
+from snowpiercer.agents.aggressive_agent import AggressiveAgent
 from snowpiercer.resources.resource import Resource
 from snowpiercer.conflicts.conflict import Conflict
 from snowpiercer.conflicts.conflict_resolver import ConflictResolver
@@ -29,6 +30,10 @@ class World:
     
     def get_died_count(self) -> int:
         return self.died_count
+    
+    def get_num_aggressive_agents(self) -> int:
+        # possible improvement: not using isInstance() here
+        return len(list(filter(lambda agent: isinstance(agent, AggressiveAgent) ,self.agents)))
 
     def get_wood_resources(self) -> int:
         return len(list(filter(lambda r: r.get_type() == "wood", self.environment.get_resources())))
@@ -102,7 +107,7 @@ class World:
         return agent_conflicts, conflicts
 
     @staticmethod
-    def create_simple_world() -> World:
+    def create_simple_conflict_avoidant_world() -> World:
         from snowpiercer.conflicts import PrisonerDilemmaResolver
         from snowpiercer.environment import InfiniteAppleEnvironment
         from snowpiercer.agents import NormieAgent
@@ -139,3 +144,23 @@ class World:
         for i in range(0, 30):
             agents.append(LumberjackAgent())
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+
+    @staticmethod
+    def create_simple_mixed_world(aggressive_agents_quote: float = 0.1, population_initial_size: int = 30) -> World:
+        from snowpiercer.conflicts import PrisonerDilemmaResolver
+        from snowpiercer.environment import InfiniteAppleEnvironment
+        from snowpiercer.agents import AggressiveAgent, NormieAgent
+        
+        resolve_strategy = PrisonerDilemmaResolver()
+        environment = InfiniteAppleEnvironment(30)
+        agents = []
+        
+        num_initial_aggressive_agents = int(population_initial_size * aggressive_agents_quote)
+        for i in range(0, num_initial_aggressive_agents):
+            agents.append(AggressiveAgent())
+            
+        for i in range(num_initial_aggressive_agents, population_initial_size):
+            agents.append(NormieAgent())
+            
+        return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+a

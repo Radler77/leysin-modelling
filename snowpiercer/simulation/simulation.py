@@ -14,12 +14,15 @@ class Simulation:
         self.world = world
         self.data = pd.DataFrame(columns=['time', 'population_size', 'born', 'died', 'wood resources'])
         
-    def run(self):
-        self.data = self.run_experiment()
+    def run(self, trackAggressiveAgents: bool = False):
+        self.data = self.run_experiment(trackAggressiveAgents=trackAggressiveAgents)
 
-    def run_experiment(self) -> pd.DataFrame:        
-        data = {'time': np.zeros(self.number_of_timesteps), 'population_size': np.zeros(self.number_of_timesteps), 'born': np.zeros(self.number_of_timesteps), 'died': np.zeros(self.number_of_timesteps), 'wood resources': np.zeros(self.number_of_timesteps)}
-        
+    def run_experiment(self, trackAggressiveAgents: bool = False) -> pd.DataFrame:
+        if trackAggressiveAgents:
+            data = {'time': np.zeros(self.number_of_timesteps), 'population_size': np.zeros(self.number_of_timesteps), 'born': np.zeros(self.number_of_timesteps), 'died': np.zeros(self.number_of_timesteps), 'aggressiveAgents': np.zeros(self.number_of_timesteps), 'wood resources': np.zeros(self.number_of_timesteps)}
+        else:
+            data = {'time': np.zeros(self.number_of_timesteps), 'population_size': np.zeros(self.number_of_timesteps), 'born': np.zeros(self.number_of_timesteps), 'died': np.zeros(self.number_of_timesteps), 'wood resources': np.zeros(self.number_of_timesteps)}
+
         for i in range(self.number_of_timesteps):
             population_size: int = self.world.get_population_size()
             born: int = self.world.get_born_count()
@@ -30,6 +33,9 @@ class Simulation:
             data['born'][i] = born
             data['died'][i] = died
             data['wood resources'][i] = self.world.get_wood_resources()
+            
+            if trackAggressiveAgents:
+                data['aggressiveAgents'][i] = self.world.get_num_aggressive_agents()
             
             self.world.next_time_step()
 
