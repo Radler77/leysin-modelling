@@ -12,6 +12,9 @@ class World:
     environment: Environment = None
     agents: List[Agent] = []
     resolve_strategy: ConflictResolver = None
+    
+    born_count: int = 0
+    died_count: int = 0
 
     def __init__(self, resolve_strategy: ConflictResolver, environment: Environment, agents: List[Agent]):
         self.resolve_strategy = resolve_strategy
@@ -20,6 +23,12 @@ class World:
 
     def get_population_size(self):
         return len(self.agents)
+    
+    def get_born_count(self) -> int:
+        return self.born_count
+    
+    def get_died_count(self) -> int:
+        return self.died_count
 
     def next_time_step(self):
         """Executes one time step in this world. This includes updating the environment and available resources,
@@ -31,12 +40,21 @@ class World:
     def update_population(self):
         """Updates the population of this world. This includes reproduction and death of agents."""
         next_agents: List[Agent] = []
+        self.born_count = 0
+        self.died_count = 0
+        
         for agent in self.agents:
             agent.next_timestep()
+            
             if agent.can_reproduce():
                 next_agents.append(agent.reproduce())
+                self.born_count += 1
+                
             if agent.can_survive():
                 next_agents.append(agent)
+            else:
+                self.died_count += 1
+                
         self.agents = next_agents
 
     def distribute_resources(self):

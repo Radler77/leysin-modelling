@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from .conflict import Conflict
 
 from .conflict_resolver import ConflictResolver
-    
+
 class PrisonerDilemmaResolver(ConflictResolver):
 
     def resolve_conflict(self, conflicts: list[Conflict]) -> dict[Agent, Resource]:
