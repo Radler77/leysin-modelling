@@ -90,3 +90,16 @@ class World:
         for i in range(0, 30):
             agents.append(NormieAgent())
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+
+    @staticmethod
+    def create_simple_but_aggressive_world() -> World:
+        from snowpiercer.conflicts import PrisonerDilemmaResolver
+        from snowpiercer.environment import InfiniteAppleEnvironment
+        from snowpiercer.agents import AggressiveAgent
+
+        resolve_strategy = PrisonerDilemmaResolver()
+        environment = InfiniteAppleEnvironment(30)
+        agents = []
+        for i in range(0, 30):
+            agents.append(AggressiveAgent())
+        return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
