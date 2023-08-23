@@ -1,0 +1,80 @@
+#import "@preview/polylux:0.2.0": *
+#import themes.metropolis: *
+
+#show: metropolis-theme.with(
+  aspect-ratio: "16-9",
+  //footer: [Leysin, August 2023]
+)
+#set text(
+  font: "Fira Sans",
+  size: 25pt
+)
+
+
+#title-slide(
+  title: "Snowpiercer",
+  subtitle: "agent-based model of a mini-population distributing ressources",
+  extra: "Leysin, August 2023"
+)
+
+
+#slide(title: "Prozess")[
+  #set align(center)
+  #image("images/modellbildungszyklus.png", width: 70%)
+]
+
+#new-section-slide([Modellierung (whiteboard)])
+
+#slide(title: "erstes Ergebnis")[
+  #set align(center)
+  #image("images/population_size_initial.png", width: 50%)
+]
+
+
+#slide(title: [Nur #emph("friedliche") Agents])[
+  #set align(center)
+  #image("images/simple_conflict_avoidant.png", width: 45%)
+]
+
+#slide(title: [Nur #emph("aggressive") Agents])[
+  #set align(center)
+  #image("images/simple_all_aggressive.png", width: 45%)
+]
+
+#slide(title: "gemischte Population (10% aggressive agents)")[
+  #set align(center)
+  #image("images/simple_10p_aggressive.png", width: 45%)
+]
+#slide(title: "gemischte Population (10% aggressive agents)")[
+  #set align(center)
+  #image("images/simple_10p_aggressive_share.png", width: 45%)
+]
+
+
+#slide(title: "Ausblick")[
+  #uncover("1-4")[
+  - weitere Agent-Typen / Verhaltensstrategien (Interaktion, Kommunikation, ...)
+  ]
+  #uncover("2-4")[
+  - weitere Ressourcen (Wasser, Polution, ...)
+  ]
+  #uncover("3-4")[
+  - Konfliktlösungsstrategien / -mechanismen
+  ]
+  #uncover("4-4")[
+  - metrik erweitern
+  ]
+]
+#slide(title: "Ausblick/Bewertung")[
+    - Vergleich mit echten Daten / Beobachtungen
+]
+
+
+
+
+#focus-slide[
+  #alert[Danke]
+  |
+  Fragen
+]
+
