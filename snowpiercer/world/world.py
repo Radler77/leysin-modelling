@@ -163,3 +163,21 @@ class World:
             agents.append(NormieAgent())
             
         return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
+
+    @staticmethod
+    def create_appletree_world_with_few_lumberjacks() -> World:
+        from snowpiercer.conflicts import PrisonerDilemmaResolver
+        from snowpiercer.environment import FiniteAppleTreesEnvironment
+        from snowpiercer.agents import LumberjackAgent, NormieAgent
+
+        resolve_strategy = PrisonerDilemmaResolver()
+        environment = FiniteAppleTreesEnvironment(initial_trees=3)
+        agents = []
+
+        for i in range(5):
+            agents.append(LumberjackAgent())
+
+        for i in range(30):
+            agents.append(NormieAgent())
+
+        return World(resolve_strategy=resolve_strategy, environment=environment, agents=agents)
